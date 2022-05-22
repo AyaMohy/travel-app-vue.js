@@ -1,27 +1,29 @@
 <script>
-// import sourcedata from '../../sourcedata.json'
-
-import data from '../../data.js'
+import sourcedata from '../../sourcedata.json'
+import gobackcomponent from '../components/gobackcomponent.vue'
+// import data from '../../data.js'
 import experiencecompoent from '../components/experiencecompoent.vue'
 export default {
-    props:['id'],
+    // props:['id'],
     data(){
         return{
-            // data: sourcedata.destinations,
-            data:data,
+            data: sourcedata.destinations,
+            // data:data,
             targetitem:null,
             targetcomponent:'',
             sendexperienceditem:'',
+            // destination:null
             
         }
     },
     components:{
-        experiencecompoent
+        experiencecompoent,
+        gobackcomponent
     }
     ,
     methods:{
         getTargetItem(id){
-            this.targetitem= data.find( (item)=>{
+            this.targetitem= this.data.find( (item)=>{
                 return item.id == id
             } )
         },
@@ -31,34 +33,62 @@ export default {
         displayalert(){
             alert("hello") 
             // 
+        },
+        // async initData(){
+        //      const response=await fetch(`https://travel-dummy-api.netlify.app/${this.$route.params.slug}`)
+        //      this.destination=await response.json()
+        // }
+       
+    },
+    //way to reload image without using templete
+    computed:{
+        destinationId(){
+            return parseInt(this.$route.params.id)
+        },
+        destination(){
+            return this.data.find( (destination)=>{
+                return destination.id=== this.destinationId
+            } )
         }
+    },
+    async created(){
+    //    this.initData()
+
+    //     this.$watch(
+    //         ()=> this.$route.params,
+    //        this.initData()
+
+    //     )
+
     }
 }
 </script>
 
 <template>
-    <div class="container">
-        <template>{{getTargetItem(id)}} </template>
-        <h3 class="mt-5">{{targetitem.name}}</h3>
-        <Router-link to="/">
+    <div class="container" v-if="destination">
+        <!-- <template>{{getTargetItem(id)}} </template> -->
+        <h3 class="mt-5">{{destination.name}}</h3>
+        <!-- <Router-link to="/">
             <button class="btn border border-2 btn-color rounded"> &#8592; &nbsp; Go Back</button>
-        </Router-link>
+        </Router-link> -->
+        <gobackcomponent/>
         <div class="d-lg-flex align-items-center mt-4">
             <div class="flex-shrink-0 border shadow d-inline-block">
-                <img width="500" class=" p-1" :src="targetitem.image" :alt="targetitem.name">
+                <img width="500" class=" p-1" :src="destination.image" :alt="destination.name">
             </div>
             <div class="flex-grow-1 ms-md-3">
-                <p class="mt-4">{{targetitem.desc}}</p>
+                <p class="mt-4">{{destination.desc}}</p>
             </div>
         </div>
-<!-- <img src="./../assets/hawaii.3100682e.jpg" alt="hawaii image" srcset=""> -->
+
         <hr class="my-5">
 
+
         <section>
-            <h2 class="mb-3">Top experiences in {{targetitem.name}}</h2>
+            <h2 class="mb-3">Top experiences in {{destination.name}}</h2>
             <div class="row">
 
-                <div class="col-6 col-md-3 mb-5  " v-for="experience in targetitem.experiences" :key="experience.id">
+                <div class="col-6 col-md-3 mb-5  " v-for="experience in destination.experiences" :key="experience.id">
                     <div class="card  card-item  rounded" @click="targetcomponent='experiencecompoent'; changetargetitem(experience)" >
               
                         <img :src="experience.image" alt="" class="rounded-top">
@@ -92,9 +122,5 @@ export default {
 
     .card-item:hover{
         width: 95%;
-    }
-    .btn-color:hover{
-        background-color: rgba(77, 77, 139, 0.9);
-        color: white;
     }
 </style>

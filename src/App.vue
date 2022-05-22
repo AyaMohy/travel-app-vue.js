@@ -1,5 +1,6 @@
 <script setup>
     import { RouterLink, RouterView } from "vue-router";
+    import { ref } from 'vue'
 </script>
 
 
@@ -25,7 +26,12 @@
         </nav>
 
 
-        <RouterView  /> 
+        <RouterView v-slot="{ Component }"  > 
+            <transition name="fade"  mode="out-in">
+                <component :is="Component" :key="$route.path"/>
+            </transition>
+        
+        </RouterView> 
         <div style="height:200px"></div>
         <div style="background-color:#2C3E50; height: 90px; " >  </div>
          </div>
@@ -35,5 +41,16 @@
 <style scoped>
 .activeLink {
     color: rgb(208, 201, 201)  !important
+}
+
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
