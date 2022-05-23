@@ -1,6 +1,6 @@
 <template>
     <div>
-         <button class="btn border border-2 btn-color rounded" @click="$router.back()"> &#8592; &nbsp; Go Back</button>
+         <button class="btn border border-2 btn-color rounded" @click="$router.go(-1)"> &#8592; &nbsp; Go Back</button>
     </div>
 </template>
 

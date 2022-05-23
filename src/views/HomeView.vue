@@ -16,7 +16,7 @@ export default {
 <template>
   <div class="container">
       <section  class=" row ">
-        <h2 class="mt-5 mb-4">All Destinations</h2>
+        <h2 class=" mb-4">All Destinations</h2>
         <div class="col-12  col-sm-6 col-md-3 " v-for="d in data" :key="d.id"> 
             <div class="card " style="width:240px;">
               <h3 class="card-title py-2 text-center">{{d.name}}</h3>
@@ -32,3 +32,9 @@ export default {
       </section>
   </div>
 </template>
+
+<style>
+body{
+    background-color:#ECEBEC ;
+}
+</style>

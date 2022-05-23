@@ -67,7 +67,7 @@ export default {
 <template>
     <div class="container" v-if="destination">
         <!-- <template>{{getTargetItem(id)}} </template> -->
-        <h3 class="mt-5">{{destination.name}}</h3>
+        <h3 >{{destination.name}}</h3>
         <!-- <Router-link to="/">
             <button class="btn border border-2 btn-color rounded"> &#8592; &nbsp; Go Back</button>
         </Router-link> -->

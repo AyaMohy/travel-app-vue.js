@@ -16,32 +16,44 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent"> 
                     <ul class="navbar-nav me-auto  mb-2 mb-lg-0  w-100">
                     
-                        <li class="nav-item ps-md-5 "><Router-link class="text-muted nav-link fs-4" to="/100">Brazil </Router-link></li>
-                        <li class="nav-item ps-md-5"><Router-link class="nav-link text-muted fs-4" to="/200">Panama </Router-link></li>
-                        <li class="nav-item ps-md-5"><Router-link class="nav-link text-muted fs-4" to="/300">Hawaii </Router-link></li>
-                        <li class="nav-item ps-md-5"><Router-link class="nav-link text-muted fs-4" to="/400">Jamaica </Router-link></li>
+                        <li class="nav-item ps-md-5 "><appLink class="text-muted nav-link fs-4" to="/100">Brazil </appLink></li>
+                        <li class="nav-item ps-md-5"><appLink class="nav-link text-muted fs-4" to="/200">Panama </appLink></li>
+                        <li class="nav-item ps-md-5"><appLink class="nav-link text-muted fs-4" to="/300">Hawaii </appLink></li>
+                        <li class="nav-item ps-md-5"><appLink class="nav-link text-muted fs-4" to="/400">Jamaica </appLink></li>
+                        <li class="nav-item ps-md-5"><appLink class="nav-link text-muted fs-4" to="/protected">Dashboard</appLink></li>
+                        <li class="nav-item ps-md-5"><appLink  class="nav-link text-muted fs-4" to="https://vuejs.org/guide/introduction.html">Documentation </appLink> </li>
                     </ul>
                 </div>
+               
             </div>
         </nav>
-
-
-        <RouterView v-slot="{ Component }"  > 
-            <transition name="fade"  mode="out-in">
-                <component :is="Component" :key="$route.path"/>
-            </transition>
-        
-        </RouterView> 
-        <div style="height:200px"></div>
-        <div style="background-color:#2C3E50; height: 90px; " >  </div>
+        <div class="container ">
+            <div class="d-flex mt-5">
+                 <RouterView v-slot="{ Component }" name="leftsidebarComponent">
+                     <transition name="fade"  mode="out-in">
+                        <component :is="Component" :key="$route.path"/>
+                    </transition>
+                 </RouterView>
+                <RouterView  v-slot="{ Component }"  > 
+                    <transition name="fade"  mode="out-in">
+                        <component :is="Component" :key="$route.path"/>
+                    </transition>
+                
+                </RouterView>
+            </div>
+             
+        </div>
+       
+        <div style="height:400px"></div>
+        <div style="background-color:#2C3E50; height: 90px;" >  </div>
          </div>
 </template>
 
 
 <style scoped>
-.activeLink {
+/* .activeLink {
     color: rgb(208, 201, 201)  !important
-}
+} */
 
 
 .fade-enter-active,

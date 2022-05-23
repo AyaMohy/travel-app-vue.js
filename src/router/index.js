@@ -11,8 +11,32 @@ const router = createRouter({
       name: "home",
       component: HomeView,
     },
-   
-   
+    {path:"/home", redirect:"/" }
+    ,
+    {
+      path:"/protected",
+      name:"protected",
+      // component:()=>import("../views/ProtectedView.vue"),
+      components:{
+        default:()=>import("../views/ProtectedView.vue"),
+        leftsidebarComponent:()=>import('../components/leftsidebarComponent.vue')
+      },
+      meta:{
+        requiresAuth :true
+      }
+    },
+    {
+      path:"/login",
+      name:"login",
+      component:()=>import("../views/LoginView.vue")
+    },
+   {
+    
+      path:"/example/:id(\\d+)?", 
+      name:"login"  ,
+      component:()=>import("../views/LoginView.vue")
+      
+   },
   
     {
       path:"/:id",
@@ -32,6 +56,18 @@ const router = createRouter({
         }
       }
      
+    },
+    {
+      path:'/invoice',
+      name:'invoice',
+      // component:()=>import("../views/InvoicesView.vue"),
+      components:{
+        default:()=>import("../views/InvoicesView.vue"),
+        leftsidebarComponent:()=>import('../components/leftsidebarComponent.vue')
+      },
+      meta:{
+        requiresAuth:true
+      }
     },
     {
       path:"/:pathMatch(.*)*",
@@ -55,4 +91,10 @@ const router = createRouter({
   } //end of scroobehavior
 });
 
+
+router.beforeEach( (to, from)=>{
+  if(to.meta.requiresAuth && !window.user){
+      return{name:'login', redirect:to.fullPath}
+  }
+} )
 export default router;
